@@ -1,0 +1,45 @@
+// Rotas
+digraph {
+	"Cidade do Cabo"
+	"Cidade do Cabo" -> Joanesburgo [label=1270]
+	"Cidade do Cabo" -> Nairobi [label=3900]
+	"Cidade do Cabo" -> Paris [label=8900]
+	Joanesburgo
+	Joanesburgo -> "Cidade do Cabo" [label=1270]
+	Joanesburgo -> Nairobi [label=4700]
+	Joanesburgo -> Mumbai [label=6500]
+	Nairobi
+	Nairobi -> "Cidade do Cabo" [label=3900]
+	Nairobi -> Joanesburgo [label=4700]
+	Nairobi -> Mumbai [label=4300]
+	Paris
+	Paris -> Londres [label=340]
+	Paris -> Berlim [label=1050]
+	Paris -> "Cidade do Cabo" [label=8900]
+	Londres
+	Londres -> Paris [label=340]
+	Londres -> "Amsterdã" [label=320]
+	Londres -> "Cidade do Cabo" [label=8900]
+	"Amsterdã"
+	"Amsterdã" -> Londres [label=320]
+	"Amsterdã" -> Paris [label=430]
+	"Amsterdã" -> Berlim [label=620]
+	Berlim
+	Berlim -> "Amsterdã" [label=620]
+	Berlim -> Paris [label=1050]
+	"Tóquio"
+	"Tóquio" -> Pequim [label=2400]
+	"Tóquio" -> Mumbai [label=6800]
+	Pequim
+	Pequim -> "Tóquio" [label=2400]
+	Pequim -> Mumbai [label=3700]
+	Pequim -> Bangcoc [label=2700]
+	Mumbai
+	Mumbai -> Pequim [label=3700]
+	Mumbai -> "Tóquio" [label=6800]
+	Mumbai -> Nairobi [label=4300]
+	Bangcoc
+	Bangcoc -> Pequim [label=2700]
+	Bangcoc -> Mumbai [label=4300]
+	Bangcoc -> Joanesburgo [label=8800]
+}
