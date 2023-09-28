@@ -24,7 +24,7 @@ for source, destinations in cities.items():
     for destination, distance in destinations.items():
         dot.edge(source, destination, label=str(distance))
 
-# Save the graph as PNG and view it
+# Save the graph as PNG
 dot.format = 'png'
 dot.render('Rotas', view=False)
 

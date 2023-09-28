@@ -16,7 +16,7 @@ public class Grafo {
         deleteAllEdges();
     }
 
-    public void setNumberOfVertices(int numberOfVertices) throws Exception{
+    public void setNumberOfVertices(int numberOfVertices) throws Exception {
         if (numberOfVertices > MAX_VERTICES) {
             throw new Exception("Erro: Número de vértices maior do que o permitido!");
         }
@@ -24,7 +24,7 @@ public class Grafo {
     }
 
     // Insert a new edge to the graph
-    public void addEdge(int v1, int v2, int weigth) throws Exception{
+    public void addEdge(int v1, int v2, int weigth) throws Exception {
         if (v1 > MAX_VERTICES || v2 > MAX_VERTICES) {
             throw new Exception("Erro: vértice " + v1 + " ou " + v2 + " não existe no gráfico");
         }
@@ -45,7 +45,8 @@ public class Grafo {
 
         response = (numberOfVertices > 0) ? true : false;
 
-        // Assigns NO_EDGE (-1) to the main diagonal and the edge weight to the other elements of the adjacencyMatrix
+        // Assigns NO_EDGE (-1) to the main diagonal and the edge weight to the other
+        // elements of the adjacencyMatrix
         // In this case, the graph is undirected, so the matrix is symmetric
         for (int i = 0; i < numberOfVertices; i++) {
             addEdge(i, i, NO_EDGE);
@@ -137,7 +138,8 @@ public class Grafo {
 
         int[][] matrixAux = new int[numberOfVertices][numberOfVertices];
 
-        // Set the NO_EDGE values to 0 and the edge weights that are >= 1 to 1 to help calculate the sum of the row/column
+        // Set the NO_EDGE values to 0 and the edge weights that are >= 1 to 1 to help
+        // calculate the sum of the row/column
         for (int i = 0; i < numberOfVertices; i++) {
             matrixAux[i][i] = 0;
             for (int j = i + 1; j < numberOfVertices; j++) {
@@ -241,7 +243,8 @@ public class Grafo {
         int[] arrOfDegrees = new int[numberOfVertices];
         int[][] matrixAux = new int[numberOfVertices][numberOfVertices];
 
-        // Set the NO_EDGE values to 0 and the edge weights that are >= 1 to 1 to help calculate the sum of the row/column
+        // Set the NO_EDGE values to 0 and the edge weights that are >= 1 to 1 to help
+        // calculate the sum of the row/column
         for (int i = 0; i < numberOfVertices; i++) {
             matrixAux[i][i] = 0;
             for (int j = i + 1; j < numberOfVertices; j++) {
@@ -263,7 +266,7 @@ public class Grafo {
         }
 
         // for (int i = 0; i < arrOfDegrees.length; i++) {
-        //     System.out.println(arrOfDegrees[i]);
+        // System.out.println(arrOfDegrees[i]);
         // }
 
         return arrOfDegrees;
@@ -280,7 +283,7 @@ public class Grafo {
         arrOfDegrees = getDegrees();
         int expectedDegree = arrOfDegrees[0];
 
-        for (int degree: arrOfDegrees) {
+        for (int degree : arrOfDegrees) {
             if (degree != expectedDegree) {
                 return false;
             }
