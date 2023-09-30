@@ -14,6 +14,8 @@ public class Extractor {
 
     Extractor(String filePath) {
         this.filePath = filePath;
+        System.out.println("Lendo arquivo [" + this.filePath + "]");
+
         try {
             this.fileReader = new BufferedReader(new FileReader(filePath));
             StringBuilder content = new StringBuilder();
@@ -32,13 +34,93 @@ public class Extractor {
     }
 
     public Boolean hasNextLine() {
-        return currentLineIndex < fileLines.length;
+        return this.currentLineIndex < this.fileLines.length;
     }
 
     public String readLine() {
         if (hasNextLine()) {
-            return fileLines[currentLineIndex++];
+            return this.fileLines[this.currentLineIndex++];
         }
         return null;
+    }
+
+    public boolean goToFirstLine() {
+        if (this.fileLines != null && this.fileLines.length > 0) {
+            this.currentLineIndex = 0;
+            return true;
+        }
+
+        return false;
+    }
+
+    public ArrayList<String> extractOriginCityNames() {
+        if (this.fileLines == null || this.fileLines.length == 0) {
+            return null;
+        }
+
+        ArrayList<String> originCityNames = new ArrayList<>();
+
+        for (String line : this.fileLines) {
+            String[] onlyOriginCity = line.split(":");
+            String originCityName = onlyOriginCity[0].trim();
+            originCityNames.add(originCityName);
+        }
+
+        return originCityNames;
+    }
+
+    public ArrayList<String> extractDestinationCityNames() {
+        if (this.fileLines == null || this.fileLines.length == 0 || this.currentLineIndex == this.fileLines.length) {
+            return null;
+        }
+
+        ArrayList<String> destinationCityNames = new ArrayList<>();
+
+        // Separa a origem do resto.
+        // Ex: [Cidade do Cabo], [Joanesburgo (1270), Nairobi (3900), Paris (8900)]
+        this.fileLines[this.currentLineIndex].split(":");
+
+        // Separa as cidades de destino.
+        // Ex: [Joanesburgo (1270)], [Nairobi (3900)], [Paris (8900)
+        String[] onlyDestinations = this.fileLines[this.currentLineIndex].split(":")[1].split(",");
+
+        // Separa apenas os nomes das cidades. Ex: [Joanesburgo], [Nairobi], [Paris]
+        for (String destination : onlyDestinations) {
+            String destinationCityName = destination.split("\\(")[0].trim();
+            destinationCityNames.add(destinationCityName);
+        }
+
+        return destinationCityNames;
+    }
+
+    public int extractDistance(String destinationCityName) {
+        if (this.fileLines == null || this.fileLines.length == 0 || this.currentLineIndex == this.fileLines.length) {
+            return -1;
+        }
+
+        // Separa as cidades de destino.
+        // Ex: [Joanesburgo (1270)], [Nairobi (3900)], [Paris (8900)
+        String[] onlyDestinations = this.fileLines[this.currentLineIndex].split(":")[1].split(",");
+
+        // Separa apenas os nomes das cidades. Ex: [Joanesburgo], [Nairobi], [Paris]
+        for (String destination : onlyDestinations) {
+            String destinationCityNameFromLine = destination.split("\\(")[0].trim();
+
+            if (destinationCityNameFromLine.equals(destinationCityName)) {
+                String distanceString = destination
+                        .split("\\(")[1]
+                        .split("\\)")[0];
+
+                int distanceValue = Integer.parseInt(distanceString);
+
+                return distanceValue;
+            }
+        }
+
+        return -1;
+    }
+
+    public int getLinesSize() {
+        return fileLines.length;
     }
 }
