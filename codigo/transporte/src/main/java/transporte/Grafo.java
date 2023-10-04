@@ -97,4 +97,25 @@ public class Grafo {
         }
         return -1; // Return -1 if no distance is found
     }
+
+    // Breadth First Search algorithm
+    public void bfs() {
+        ArrayList<Cidade> visited = new ArrayList<Cidade>();
+        ArrayList<Cidade> queue = new ArrayList<Cidade>();
+        Cidade actual = this.cidades.get(0);
+        visited.add(actual);
+        System.out.println(actual.getNome());
+        queue.add(actual);
+
+        while (queue.size() > 0) {
+            Cidade explored = queue.get(0);
+
+            for (int i = 0; i < estradas.size(); i++) {
+                if (explored.getId() == estradas.get(i).get_idOrigem()) {
+                    
+                }
+            }
+        }
+    }
+
 }
