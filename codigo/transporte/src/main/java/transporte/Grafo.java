@@ -104,13 +104,13 @@ public class Grafo {
         return -1; // Return -1 no distance
     }
 
-    private Cidade getIndexByCityName(String searchName) {
+    public int cityIdByName(String searchName) {
         for (Cidade cidade : this.cidades) {
             if (cidade.getNome().equals(searchName)) {
-                return cidade;
+                return cidade.getId();
             }
         }
-        return null;
+        return -1;
     }
 
     public ArrayList<Cidade> getCidadeVizinhas(Cidade atual) {
@@ -123,76 +123,11 @@ public class Grafo {
         return vizinhas;
     }
 
-    public void allCitieAllRoadsRecomendation() {
-        List<Cidade> vertices = this.cidades;
-        List<Integer> distances = new ArrayList<>();
-        List<Visited> verticeState = new ArrayList<>();
-        List<Cidade> ancestors = new ArrayList<>();
-
-        Cidade start = this.cidades.get(0); // Inicia pela Cidade do Cabo
-        int startIndex = 0;
-
-        // Inicializa os arrays
-        for (int i = 0; i < vertices.size(); i++) {
-            distances.add(i, Integer.MAX_VALUE);
-            verticeState.add(i, Visited.NOT_VISITED);
-            ancestors.add(i, null);
-        }
-
-        distances.set(startIndex, 0);
-        verticeState.set(startIndex, Visited.VISITING);
-
-        Queue<Cidade> queue = new LinkedList<>();
-        queue.add(start);
-
-        while (!queue.isEmpty()) {
-            Cidade u = queue.poll();
-            int uIndex = vertices.indexOf(u);
-
-            List<Cidade> adj = this.getAdjacent(u);
-
-            for (Cidade v : adj) {
-                int vIndex = vertices.indexOf(v);
-
-                if (verticeState.get(vIndex) == Visited.NOT_VISITED) {
-                    verticeState.set(vIndex, Visited.VISITING);
-                    distances.set(vIndex, distances.get(uIndex) + 1);
-                    ancestors.set(vIndex, u);
-                    queue.add(v);
-                }
-            }
-
-            verticeState.set(uIndex, Visited.VISITED);
-        }
-
-        System.out.println(verticeState);
-
-        for (int i = 0; i < distances.size(); i++) {
-            try {
-                System.out.println(this.cidades.get(i).getNome() + ": " + distances.get(i));
-            } catch (Exception e) {
-                System.out
-                        .println("Cidade: " + this.cidades.get(i).getNome() + " não tem caminho para a cidade do Cabo");
-            }
-        }
-
-        for (int i = 0; i < ancestors.size(); i++) {
-            try {
-                System.out.println(this.cidades.get(i).getNome() + ": " + ancestors.get(i).getNome());
-            } catch (Exception e) {
-                System.out
-                        .println("Cidade: " + this.cidades.get(i).getNome() + " não tem caminho para a cidade do Cabo");
-            }
-        }
+    public ArrayList<Estrada> getEstradas() {
+        return estradas;
     }
 
-    private List<Cidade> getAdjacent(Cidade u) {
-        List<Cidade> adjacent = new ArrayList<>();
-        for (Estrada estrada : this.estradas) {
-            if (estrada.get_idOrigem() == u.getId()) {
-                adjacent.add(this.cidades.get(estrada.get_idDestino()));
-            }
-        }
-        return adjacent;
+    public ArrayList<Cidade> getCidades() {
+        return cidades;
     }
 }

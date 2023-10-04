@@ -105,7 +105,6 @@ public class Extractor {
         // Separa apenas os nomes das cidades. Ex: [Joanesburgo], [Nairobi], [Paris]
         for (String destination : onlyDestinations) {
             String destinationCityNameFromLine = destination.split("\\(")[0].trim();
-
             if (destinationCityNameFromLine.equals(destinationCityName)) {
                 String distanceString = destination
                         .split("\\(")[1]
