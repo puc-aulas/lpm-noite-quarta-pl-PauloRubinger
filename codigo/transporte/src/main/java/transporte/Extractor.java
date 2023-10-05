@@ -122,4 +122,12 @@ public class Extractor {
     public int getLinesSize() {
         return fileLines.length;
     }
+
+    public void closeFile() {
+        try {
+            this.fileReader.close();
+        } catch (IOException exception) {
+            System.out.println("Erro no fechamento do arquivo de leitura: " + exception);
+        }
+    }
 }

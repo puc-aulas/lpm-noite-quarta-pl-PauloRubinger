@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Extractor extractor = new Extractor(System.getProperty("user.dir") + "/transporte/rotas.txt"); // Lê o arquivo
+        Extractor extractor = new Extractor(System.getProperty("user.dir") + "/codigo/transporte/rotas.txt"); // Lê o arquivo
                                                                                                        // das estações
 
         Grafo grafo = new Grafo(); // Instancia o grafo vazio
@@ -12,6 +12,17 @@ public class Main {
         createGraph(extractor, grafo); // Cria o grafo
 
         grafo.showAdjacentList();
+
+        // Imprime os vértices (cidades) com seus respectivos Id's e nomes
+        ArrayList<Cidade> cidades = new ArrayList<>();
+        cidades = grafo.getCidades();
+        for (Cidade cidade : cidades) {
+            System.out.println(cidade.getId() + " " + cidade.getNome());
+        }
+
+        grafo.bfs(cidades.get(4));
+
+        extractor.closeFile();
     }
 
     static void createGraph(Extractor e, Grafo g) {

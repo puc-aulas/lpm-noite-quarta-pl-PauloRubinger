@@ -2,7 +2,6 @@ package transporte;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class Grafo {
@@ -129,5 +128,27 @@ public class Grafo {
 
     public ArrayList<Cidade> getCidades() {
         return cidades;
+    }
+
+    // Breadth First Search (Busca em Largura)
+    public void bfs(Cidade startVertex) {
+
+        // Nesse vetor de boolean, todos os elementos são iniciados com o valor "false" por padrão
+        // Isso indica que inicialmente nenhum vértice é marcado como visitado pelo algoritmo
+        boolean[] visited = new boolean[cidades.size()];
+        // Cria estrutura de dados do tipo Fila para auxiliar na busca
+        Queue<Cidade> queue = new LinkedList<>();
+        queue.add(startVertex);
+        
+        System.out.println("\nOrdem da busca em largura:");
+
+        while(!queue.isEmpty()) {
+            Cidade current = queue.remove();
+            if (visited[current.getId()] == false) {
+                visited[current.getId()] = true;
+                System.out.println(current.getNome());
+                queue.addAll(getCidadeVizinhas(current));
+            }
+        }
     }
 }
