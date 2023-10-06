@@ -131,7 +131,7 @@ public class Grafo {
     }
 
     // Breadth First Search (Busca em Largura)
-    public void bfs(Cidade startVertex) {
+    public boolean[] bfs(Cidade startVertex) {
 
         // Nesse vetor de boolean, todos os elementos são iniciados com o valor "false" por padrão
         // Isso indica que inicialmente nenhum vértice é marcado como visitado pelo algoritmo
@@ -150,5 +150,40 @@ public class Grafo {
                 queue.addAll(getCidadeVizinhas(current));
             }
         }
+        return visited;
+    }
+
+    public boolean isConnected() {
+        boolean[] visited = new boolean[cidades.size()];
+        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a busca em largura
+        visited = bfs(cidades.get(0));
+
+        // Percorre o vetor de vértices que retornou da busca em largura
+        for (int i = 0; i < visited.length; i++) {
+            if (!visited[i]) {
+                return false; // Se o vértice não foi visitado, o grafo não é conexo
+            }
+        }
+        return true;
+    }
+
+    // Método para identificar em quais cidades não é possível chegar via transporte terrestre
+    public ArrayList<Cidade> disconnectedCitis() {
+        // Vetor que indica quais são as cidades que não são possíveis de serem alcançadas via transporte terrestre
+        ArrayList<Cidade> disconnectedCities = new ArrayList<>();
+        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a busca em largura
+        boolean[] visited = new boolean[cidades.size()];
+        visited = bfs(cidades.get(0));
+
+        // Variável auxiliar que será usada para indicar em qual índice do vetor a cidade desconexa será colocada
+        // Essa variável auxiliar fará com que o vetor só seja composto de cidades desconexas
+        int aux = 0;
+        for (int i = 0; i < visited.length; i++) {
+            if (!visited[i]) {
+                disconnectedCities.add(aux, cidades.get(i));
+                aux++;
+            }
+        }
+        return disconnectedCities;
     }
 }

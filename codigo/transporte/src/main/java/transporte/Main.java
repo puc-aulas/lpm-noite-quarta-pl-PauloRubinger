@@ -20,7 +20,22 @@ public class Main {
             System.out.println(cidade.getId() + " " + cidade.getNome());
         }
 
-        grafo.bfs(cidades.get(4));
+        grafo.bfs(cidades.get(0));
+        
+        if (grafo.isConnected()) {
+            System.out.println("\nExiste estrada de qualquer cidade para qualquer cidade!");
+        } else {
+            ArrayList<Cidade> disconnectedCities = new ArrayList<>();
+            disconnectedCities = grafo.disconnectedCitis();
+
+            System.out.println("As cidades que não são possíveis de serem alcançadas por transporte terrestre são: ");
+
+            for (Cidade cidade: disconnectedCities) {
+                if (cidade != null) {
+                    System.out.println(cidade);
+                }
+            }
+        }
 
         extractor.closeFile();
     }
