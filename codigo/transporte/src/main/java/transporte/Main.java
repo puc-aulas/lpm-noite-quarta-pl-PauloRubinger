@@ -32,7 +32,7 @@ public class Main {
 
             for (Cidade cidade: disconnectedCities) {
                 if (cidade != null) {
-                    System.out.println(cidade);
+                    System.out.println(cidade.getNome());
                 }
             }
         }
