@@ -37,6 +37,8 @@ public class Main {
             }
         }
 
+        grafo.solveTSP();
+
         extractor.closeFile();
     }
 

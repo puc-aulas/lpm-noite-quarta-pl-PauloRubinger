@@ -133,16 +133,18 @@ public class Grafo {
     // Breadth First Search (Busca em Largura)
     public boolean[] bfs(Cidade startVertex) {
 
-        // Nesse vetor de boolean, todos os elementos são iniciados com o valor "false" por padrão
-        // Isso indica que inicialmente nenhum vértice é marcado como visitado pelo algoritmo
+        // Nesse vetor de boolean, todos os elementos são iniciados com o valor "false"
+        // por padrão
+        // Isso indica que inicialmente nenhum vértice é marcado como visitado pelo
+        // algoritmo
         boolean[] visited = new boolean[cidades.size()];
         // Cria estrutura de dados do tipo Fila para auxiliar na busca
         Queue<Cidade> queue = new LinkedList<>();
         queue.add(startVertex);
-        
+
         System.out.println("\nOrdem da busca em largura:");
 
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             Cidade current = queue.remove();
             if (visited[current.getId()] == false) {
                 visited[current.getId()] = true;
@@ -155,7 +157,8 @@ public class Grafo {
 
     public boolean isConnected() {
         boolean[] visited = new boolean[cidades.size()];
-        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a busca em largura
+        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a
+        // busca em largura
         visited = bfs(cidades.get(0));
 
         // Percorre o vetor de vértices que retornou da busca em largura
@@ -167,16 +170,21 @@ public class Grafo {
         return true;
     }
 
-    // Método para identificar em quais cidades não é possível chegar via transporte terrestre
+    // Método para identificar em quais cidades não é possível chegar via transporte
+    // terrestre
     public ArrayList<Cidade> disconnectedCitis() {
-        // Vetor que indica quais são as cidades que não são possíveis de serem alcançadas via transporte terrestre
+        // Vetor que indica quais são as cidades que não são possíveis de serem
+        // alcançadas via transporte terrestre
         ArrayList<Cidade> disconnectedCities = new ArrayList<>();
-        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a busca em largura
+        // Vetor que indica, para cada vértice, se ele foi ou não visitado durante a
+        // busca em largura
         boolean[] visited = new boolean[cidades.size()];
         visited = bfs(cidades.get(0));
 
-        // Variável auxiliar que será usada para indicar em qual índice do vetor a cidade desconexa será colocada
-        // Essa variável auxiliar fará com que o vetor só seja composto de cidades desconexas
+        // Variável auxiliar que será usada para indicar em qual índice do vetor a
+        // cidade desconexa será colocada
+        // Essa variável auxiliar fará com que o vetor só seja composto de cidades
+        // desconexas
         int aux = 0;
         for (int i = 0; i < visited.length; i++) {
             if (!visited[i]) {
@@ -185,5 +193,77 @@ public class Grafo {
             }
         }
         return disconnectedCities;
+    }
+
+    public ArrayList<Cidade> solveTSP() {
+        ArrayList<Cidade> tour = new ArrayList<>();
+        int totalDistance = 0;
+    
+        if (cidades.isEmpty()) {
+            return tour;
+        }
+    
+        int numCities = cidades.size();
+        int[][] distanceMatrix = new int[numCities][numCities];
+    
+        // Preenche a matriz de distâncias com os valores fornecidos
+        for (int i = 0; i < numCities; i++) {
+            for (int j = 0; j < numCities; j++) {
+                if (i == j) {
+                    distanceMatrix[i][j] = 0; // Distância de uma cidade para ela mesma é 0
+                } else {
+                    distanceMatrix[i][j] = findDistance(cidades.get(i), cidades.get(j));
+                }
+            }
+        }
+    
+        Cidade startCity = cidades.get(0);
+        Cidade currentCity = startCity;
+        tour.add(startCity);
+    
+        boolean[] visited = new boolean[numCities];
+        visited[startCity.getId()] = true;
+    
+        while (tour.size() < numCities) {
+            Cidade nearestNeighbor = findNearestNeighbor(currentCity, visited, distanceMatrix);
+    
+            if (nearestNeighbor != null) {
+                int distance = distanceMatrix[currentCity.getId()][nearestNeighbor.getId()];
+                totalDistance += distance;
+                tour.add(nearestNeighbor);
+                visited[nearestNeighbor.getId()] = true;
+                currentCity = nearestNeighbor;
+            }
+        }
+    
+        // Volta para a cidade de origem para completar o ciclo
+        tour.add(startCity);
+        totalDistance += distanceMatrix[currentCity.getId()][startCity.getId()];
+    
+        // Imprime a cidade de origem e a distância total
+        System.out.println("Cidades Visitadas: ");
+        for (Cidade cidade : tour) {
+            System.out.println(cidade.getNome());
+        }
+        System.out.println("Distância Total: " + totalDistance);
+    
+        return tour;
+    }
+    
+    private Cidade findNearestNeighbor(Cidade city, boolean[] visited, int[][] distanceMatrix) {
+        Cidade nearestNeighbor = null;
+        int minDistance = Integer.MAX_VALUE;
+        int cityId = city.getId();
+    
+        for (int i = 0; i < visited.length; i++) {
+            if (!visited[i]) {
+                if (distanceMatrix[cityId][i] < minDistance) {
+                    minDistance = distanceMatrix[cityId][i];
+                    nearestNeighbor = cidades.get(i);
+                }
+            }
+        }
+    
+        return nearestNeighbor;
     }
 }
