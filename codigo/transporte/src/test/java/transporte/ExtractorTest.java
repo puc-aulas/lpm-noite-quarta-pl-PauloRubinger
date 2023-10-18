@@ -49,7 +49,8 @@ public class ExtractorTest {
         String filePath = projectRoot + "/rotas.txt";
         Extractor extractor = new Extractor(filePath);
 
-        assertEquals("Verifica a distância da Cidade do Cabo até Joanesburgo", 1270, extractor.extractDistance("Joanesburgo"));
+        assertEquals("Verifica a distância da Cidade do Cabo até Joanesburgo", 1270,
+                extractor.extractDistance("Joanesburgo"));
         assertEquals("Verifica a distância da Cidade do Cabo até Nairobi", 3900, extractor.extractDistance("Nairobi"));
         assertEquals("Verifica a distância da Cidade do Cabo até Paris", 8900, extractor.extractDistance("Paris"));
     }

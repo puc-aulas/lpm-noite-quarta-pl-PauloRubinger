@@ -105,7 +105,6 @@ public class Extractor {
         // Separa apenas os nomes das cidades. Ex: [Joanesburgo], [Nairobi], [Paris]
         for (String destination : onlyDestinations) {
             String destinationCityNameFromLine = destination.split("\\(")[0].trim();
-
             if (destinationCityNameFromLine.equals(destinationCityName)) {
                 String distanceString = destination
                         .split("\\(")[1]
@@ -122,5 +121,14 @@ public class Extractor {
 
     public int getLinesSize() {
         return fileLines.length;
+    }
+
+    // Fecha o arquivo
+    public void closeFile() {
+        try {
+            this.fileReader.close();
+        } catch (IOException exception) {
+            System.out.println("Erro no fechamento do arquivo de leitura: " + exception);
+        }
     }
 }
