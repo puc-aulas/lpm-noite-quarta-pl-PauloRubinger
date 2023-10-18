@@ -1,0 +1,4 @@
+Cidade1: Cidade2 (1000), Cidade3 (2000), Cidade4 (3000)
+Cidade2: Cidade1 (1000), Cidade3 (2000), Cidade4 (4000)
+Cidade3: Cidade1 (2000), Cidade2 (2000), Cidade4 (5000)
+Cidade4: Cidade1 (3000), Cidade2 (4000), Cidade3 (5000)
