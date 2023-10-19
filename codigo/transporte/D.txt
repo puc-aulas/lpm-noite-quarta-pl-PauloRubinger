@@ -1,0 +1,5 @@
+Cidade do Cabo: Joanesburgo (1270), Londres (8780), Nairobi (3690), Paris (8525)
+Joanesburgo: Cidade do Cabo (1270), Nairobi (3740), Paris (8050), Londres (8990)
+Nairobi: Paris (6880), Cidade do Cabo (3690), Joanesburgo (3740), Londres (6880)
+Paris: Nairobi (6880), Cidade do Cabo (8525), Joanesburgo (8050), Londres (344)
+Londres: Cidade do Cabo (8780), Joanesburgo (8990), Nairobi (6880), Paris (344)

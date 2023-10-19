@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Extractor extractor = new Extractor(System.getProperty("user.dir") + "/codigo/transporte/test.txt"); // Lê o arquivo
+        Extractor extractor = new Extractor(System.getProperty("user.dir") + "/codigo/transporte/D.txt"); // Lê o arquivo
                                                                                                        // das estações
 
         Grafo grafo = new Grafo(); // Instancia o grafo vazio
